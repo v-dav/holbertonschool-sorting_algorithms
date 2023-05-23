@@ -10,29 +10,40 @@
 void insertion_sort_list(listint_t **list)
 {
 	listint_t *i = NULL;
-	listint_t *head = NULL;
 	listint_t *j = NULL;
+	
+	if (list == NULL || *list == NULL)
+        	return;
 
-	if (list && *list)
+	for (i = (*list)->next; i != NULL; i = i->next)
 	{
-		head = *list;
-		if ((*head)->next)
+		for (j = i; j != NULL; j = i->prev)
 		{
-			for (i = (*head)->next; i != NULL; i = i->next)
+			if ((i->n) < (j->n))
 			{
-				for (j = i->prev; j != NULL; j = i->prev)
-				{
-					if ((i->n) < (j->n))
-					{
-						i->prev = NULL;
-						i->next = j;
-						j->prev = i;
-						j->next = i->next;
-						print_list(*list);
-					}
+    				// i is not the last element in the list
+    				if (i->next)
+        				i->next->prev = j;
 
-				}
+    				// j is not the first element in the list
+    				if (j->prev)
+        				j->prev->next = i;
+    				else // j is the first element, update the head of the list
+        				*list = i;
+
+			    	// Swap i and j
+			   	i->prev = j->prev;
+			    	j->next = i->next;
+			    	i->next = j;
+			    	j->prev = i;
+
+    				// Print the list
+   				 print_list(*list);
+
+    				// Continue with the new j (which was i before the swap)
+    				j = i->prev;
 			}
+
 		}
 	}
 }
