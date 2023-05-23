@@ -17,8 +17,9 @@ void insertion_sort_list(listint_t **list)
 
 	for (i = (*list)->next; i != NULL; i = i->next)
 	{
-		for (j = i; j != NULL; j = i->prev)
+		for (j = i; j != NULL && j->prev != NULL; j = j->prev)
 		{
+
 			if ((i->n) < (j->n))
 			{
     				// i is not the last element in the list
@@ -42,8 +43,8 @@ void insertion_sort_list(listint_t **list)
 
     				// Continue with the new j (which was i before the swap)
     				j = i->prev;
+				
 			}
-
 		}
 	}
 }
