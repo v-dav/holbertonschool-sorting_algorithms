@@ -18,16 +18,16 @@ void insertion_sort_list(listint_t **list)
 		head = *list;
 		if ((*head)->next)
 		{
-			for (i = (*head)->next; i != NULL; i = (*head)->next->next)
+			for (i = (*head)->next; i != NULL; i = (*head)->next)
 			{
-				for (j = i->prev; j != NULL; j = i->prev->prev)
+				for (j = i->prev; j != NULL; j = i->prev)
 				{
 					if ((i->n) < (j->n))
 					{
-						j->prev = i;
-						j->next = i->next;
 						i->prev = NULL;
 						i->next = j;
+						j->prev = i;
+						j->next = i->next;
 						print_list(*list);
 					}
 
