@@ -29,6 +29,5 @@ void selection_sort(int *array, size_t size)
 			array[jMin] = tmp_i;
 			print_array(array, size);
 		}
-		
 	}
 }
