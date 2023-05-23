@@ -9,42 +9,41 @@
  */
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *i = NULL;
-	listint_t *j = NULL;
-	
-	if (list == NULL || *list == NULL)
-        	return;
+    listint_t *i = NULL;
+    listint_t *j = NULL;
+    listint_t *next = NULL;  // new variable to track the next node
 
-	for (i = (*list)->next; i != NULL; i = i->next)
-	{
-		for (j = i; j != NULL && j->prev != NULL; j = j->prev)
-		{
+    if (list == NULL || *list == NULL)
+        return;
 
-			if ((i->n) < (j->n))
-			{
-    				// i is not the last element in the list
-    				if (i->next)
-        				i->next->prev = j;
+    for (i = (*list)->next; i != NULL; i = next)
+    {
+        next = i->next;  // update next before doing the swap
 
-    				// j is not the first element in the list
-    				if (j->prev)
-        				j->prev->next = i;
-    				else // j is the first element, update the head of the list
-        				*list = i;
+        for (j = i; j != NULL && j->prev != NULL; j = j->prev)
+        {
+            if ((i->n) < (j->n))
+            {
+                // i is not the last element in the list
+                if (i->next)
+                    i->next->prev = j;
 
-			    	// Swap i and j
-			   	i->prev = j->prev;
-			    	j->next = i->next;
-			    	i->next = j;
-			    	j->prev = i;
+                // j is not the first element in the list
+                if (j->prev)
+                    j->prev->next = i;
+                else // j is the first element, update the head of the list
+                    *list = i;
 
-    				// Print the list
-   				 print_list(*list);
+                // Swap i and j
+                i->prev = j->prev;
+                j->next = i->next;
+                i->next = j;
+                j->prev = i;
 
-    				// Continue with the new j (which was i before the swap)
-    				j = i->prev;
-				
-			}
-		}
-	}
+                // Print the list
+                print_list(*list);
+            }
+        }
+    }
 }
+
