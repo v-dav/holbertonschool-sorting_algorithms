@@ -24,8 +24,11 @@ void insertion_sort_list(listint_t **list)
 				{
 					if ((i->n) < (j->n))
 					{
-						/*changement des next et prev*/
-						/*print*/
+						j->prev = i;
+						j->next = i->next;
+						i->prev = NULL;
+						i->next = j;
+						print_list(*list);
 					}
 
 				}
