@@ -12,7 +12,7 @@ int main(void)
 
     print_array(array, n);
     printf("\n");
-    partition(array, 0, n);
+    quick_sort(array, n);
     printf("\n");
     print_array(array, n);
     return (0);
