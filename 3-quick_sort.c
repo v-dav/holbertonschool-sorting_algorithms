@@ -33,37 +33,48 @@ void swap (int *a, int *b)
  * Return: the partition index, which is the index where the pivot element
  * is placed after the partitioning process.
  */
-int partition(int *array, int start, int end, size_t size)
+int partition(int *array, int start, int end)
 {
+	end--;
+	
 	int pivot = array[end];
 	int partition_index = start;
 	int i;
-
-	printf("Le pivot est %d et le partition index est %d\n", pivot, partition_index);
 
 	for (i = start; i < end; i++)
 	{
 		if (array[i] <= pivot)
 		{
 			swap(&array[i], &array[partition_index]);
-			print_array(array, size);
+			print_array(array, end);
 			partition_index++;
 		}
 	}
 	swap(&array[partition_index], &array[end]);
-	print_array(array, size);
+	print_array(array, end);
+	printf("Le pivot est %d et le partition index est %d\n", pivot, partition_index);
 	return (partition_index);
 }
-
-
+/*
 void quick_sort(int *array, size_t size)
 {
+	int start = 0;
+	int end = size - 1;
+	int partition_index;
+
 	if (!array)
 		return;
 
-	partition(array, 0, 4, size);
+	if (start < end)
+	{
+		
+		partition_index = partition(array, start, end);
 
-	/* base condition to stop the recursion: (if start >= end ->return)
+		quick_sort(array, partition_index - 1);
+		quick_sort(array + partition_index + 1, size);
+	}
+
+	 base condition to stop the recursion: (if start >= end ->return)
 	if start < end execute condition
 	1 - Partition
 	  - select pivot = array(size);
@@ -74,18 +85,6 @@ void quick_sort(int *array, size_t size)
 	  -return partition_index
 
 	2 - quick_sort left
-	3 - quick_sort right */
+	3 - quick_sort right 
 }
-
-int main(void)
-{
-	int array[] = {10, 5, 6, 1, 7};
-	size_t n = 0;
-
-	n = sizeof(array) / sizeof(int);
-
-	print_array(array, n);
-	quick_sort(array, n);
-
-	return (0);
-}
+*/
