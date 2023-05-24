@@ -1,19 +1,27 @@
 #include "sort.h"
-
 /**
- * swap - swaps the values of two integers
- * @a: a pointer to 1st int
- * @b: a pointer to 2nd int
+ * swap - function that swaps two integers in an array
+ * and prints the updated array
  *
- * Return: nothing
+ * @a:  pointer to an integer variable that will be swapped
+ * with another integer variable.
+ * @b: pointer to an integer. It is used in the function to swap the value
+ * it points to with the value pointed to by another integer pointer "a"
+ * @array: an array of integers
+ * @size: The parameter "size" is of type "size_t" and represents the size
+ * of the array that is being passed as a parameter to the function.
  */
-void swap (int *a, int *b)
+void swap(int *a, int *b, int *array, size_t size)
 {
 	int temp;
 
-	temp = *a;
-	*a = *b;
-	*b = temp;
+	if (*a != *b)
+	{
+		temp = *a;
+		*a = *b;
+		*b = temp;
+		print_array(array, size);
+	}
 }
 
 /**
@@ -26,8 +34,8 @@ void swap (int *a, int *b)
  * @end: The "end" parameter in the "partition" function is an integer that
  * represents the index of the last element in the array that needs
  * to be partitioned.
- * @size: The size parameter is the size of the array being sorted. 
- * It is used to ensure that the print_array function prints the correct 
+ * @size: The size parameter is the size of the array being sorted.
+ * It is used to ensure that the print_array function prints the correct
  * number of elements.
  *
  * Return: the partition index, which is the index where the pivot element
@@ -39,22 +47,27 @@ int partition(int *array, int start, int end, size_t size)
 	int partition_index = start;
 	int i;
 
-	/*printf("n = %d\n", n);*/
-
 	for (i = start; i < end; i++)
 	{
 		if (array[i] <= pivot)
 		{
-			swap(&array[i], &array[partition_index]);
-			
+			swap(&array[i], &array[partition_index], array, size);
 			partition_index++;
 		}
 	}
-	swap(&array[partition_index], &array[end]);
-	print_array(array, size);
+	swap(&array[partition_index], &array[end], array, size);
 	return (partition_index);
 }
 
+/**
+ * quick_sort_helper - a helper function for quick sort algorithm
+ * that recursively sorts an integer array.
+ *
+ * @array: A pointer to the first element of the array to be sorted.
+ * @start: The index of the first element in the subarray being sorted
+ * @end: represents the index of the last element in the subarray
+ * @original_size: the size of the original array that is being sorted.
+ */
 void quick_sort_helper(int *array, int start, int end, size_t original_size)
 {
 	int partition_index;
@@ -68,6 +81,13 @@ void quick_sort_helper(int *array, int start, int end, size_t original_size)
 	}
 }
 
+/**
+ * quick_sort - This function calls a helper function
+ * to perform quick sort on an array
+ *
+ * @array: A pointer to the first element of the array to be sorted
+ * @size: The size parameter represents the number of elements in the array
+ */
 void quick_sort(int *array, size_t size)
 {
 	quick_sort_helper(array, 0, size - 1, size);
